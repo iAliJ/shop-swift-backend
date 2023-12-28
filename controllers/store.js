@@ -17,9 +17,9 @@ exports.store_create_post = (req, res) => {
 
 // Edit store
 exports.store_edit_post = async (req, res) => {
-    if(await hasPermission(req.user.id, req.query.id)) {
+    if(await hasPermission(req.user.id, req.body.id)) {
     console.log(`Editing store ${req.body.id}`);
-    Store.findByIdAndUpdate(req.body._id, req.body, {new:true})
+    Store.findByIdAndUpdate(req.body.id, req.body, {new:true})
     .then((shop) => {
         res.json({shop});
     })
@@ -28,7 +28,7 @@ exports.store_edit_post = async (req, res) => {
         console.log(err);
         res.json({err});
     })}else{
-        console.log(`user ${req.user.id} tried to edit a store ${req.query.id} which they dont own`);
+        console.log(`user ${req.user.id} tried to edit a store ${req.body.id} which they dont own`);
         res.json({"message": "You dont have permission to perform this action"});
     }
 }
