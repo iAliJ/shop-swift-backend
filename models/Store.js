@@ -5,12 +5,14 @@ const storeSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    "logo": String,
     "address": String,
     "category": {
         type: mongoose.Schema.Types.ObjectId
     },
     "user": {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
 },
 {
