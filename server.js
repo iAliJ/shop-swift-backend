@@ -14,6 +14,9 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Routes
+const authRoute = require('./routes/auth');
+
+app.use('/auth', authRoute);
 
 // start listening to requests coming from the PORT
 const port = process.env.PORT || 3000
