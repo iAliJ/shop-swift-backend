@@ -21,7 +21,10 @@ const userSchema = mongoose.Schema({
         minlength: [8, "Password should be at least 8 characters"]
     },
     "phoneNumber": String,
-    "userType": String,
+    "role": {
+        type: String,
+        enum: ['admin', 'seller', 'buyer']
+    }
 },
 {
     timestamps: true
