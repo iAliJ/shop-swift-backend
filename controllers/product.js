@@ -79,6 +79,25 @@ exports.product_detail_get = (req, res) => {
     })
 }
 
+
+// Get all products by category
+exports.product_getByCategory_get = (req, res) => {
+    const { category } = req.query;
+
+    Product.find({ category })
+        .then((products) => {
+            res.json({ products });
+        })
+        .catch((err) => {
+            console.log('Error getting products by category');
+            console.log(err);
+            res.json({ err });
+        });
+};
+
+
+
+
 //#region helper functions
 /**
  * Check if a specific user owns the permissions to edit or delete a product

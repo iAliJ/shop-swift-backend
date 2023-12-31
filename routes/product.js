@@ -21,6 +21,9 @@ router.get('/all', shopController.product_getAll_get);
 // GET /detail
 router.get('/detail', shopController.product_detail_get);
 
+// GET /byCategory
+router.get('/byCategory', shopController.product_getByCategory_get);
+
 module.exports = router;
 
 
