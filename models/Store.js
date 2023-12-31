@@ -7,8 +7,9 @@ const storeSchema = mongoose.Schema({
     },
     "logo": String,
     "address": String,
-    "category": {
-        type: mongoose.Schema.Types.ObjectId
+    "description": {
+        type: String,
+        required: true
     },
     "user": {
         type: mongoose.Schema.Types.ObjectId,
