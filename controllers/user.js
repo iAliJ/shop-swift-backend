@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Store = require('../models/Store');
 
 exports.user_detail_get = (req, res) => {
     // get the user id
@@ -15,5 +16,18 @@ exports.user_detail_get = (req, res) => {
         console.log('Error getting user data');
         console.log(err);
         res.json({'message': err.message}).status(404);
+    })
+}
+
+ // Get store owned by user
+exports.user_store_get = (req, res) => {
+    console.log(`Getting store owned by ${req.query.user}`);
+    Store.findOne({user: req.query.user})
+    .then((store) => {
+        res.json({store});
+    })
+    .catch((err) => {
+        console.log('Error requesting user data');
+        res.json({err}).status(400);
     })
 }

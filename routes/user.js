@@ -10,4 +10,7 @@ const userCtrl = require('../controllers/user');
 // GET /getData
 router.get('/detail', isLoggedIn, userCtrl.user_detail_get);
 
+// GET /store
+router.get('/store', userCtrl.user_store_get);
+
 module.exports = router;
