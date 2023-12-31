@@ -18,11 +18,13 @@ const authRoute = require('./routes/auth');
 const storeRoute = require('./routes/store');
 const productRoute = require('./routes/product');
 const userRoute = require('./routes/user');
+const categoryRoute = require('./routes/category');
 
 app.use('/auth', authRoute);
 app.use('/store', storeRoute);
 app.use('/product', productRoute);
 app.use('/user', userRoute);
+app.use('/category', categoryRoute);
 
 // start listening to requests coming from the PORT
 const port = process.env.PORT || 3000

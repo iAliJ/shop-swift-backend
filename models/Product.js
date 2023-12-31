@@ -28,6 +28,10 @@ const productSchema = mongoose.Schema({
     "store": {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Store"
+    },
+    "user": {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
 },
 {

@@ -16,7 +16,7 @@ const storeSchema = mongoose.Schema({
     }
 },
 {
-    timestamp: true
+    timestamps: true
 })
 
 const Store = mongoose.model("Store", storeSchema);
