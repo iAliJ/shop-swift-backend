@@ -81,10 +81,30 @@ exports.product_detail_get = (req, res) => {
 
 
 // Get all products by category
-exports.product_getByCategory_get = (req, res) => {
-    const { category } = req.query;
+// exports.product_getByCategory_get = (req, res) => {
+   
 
-    Product.find({ category })
+//     Product.findById( req.query.id )
+//         .then((products) => {
+//             res.json({ products });
+//         })
+//         .catch((err) => {
+//             console.log('Error getting products by category');
+//             console.log(err);
+//             res.json({ err });
+//         });
+// };
+
+// Get all products by category
+exports.product_getByCategory_get = (req, res) => {
+    const categoryId = req.query.id;
+
+    // Check if categoryId is provided
+    if (!categoryId) {
+        return res.status(400).json({ message: "Category ID is required." });
+    }
+
+    Product.find({ category: categoryId })
         .then((products) => {
             res.json({ products });
         })
