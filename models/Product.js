@@ -17,7 +17,7 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    "setllingUnit": {
+    "sellingUnit": {
         type: String,
         required: true
     },
