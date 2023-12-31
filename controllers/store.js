@@ -1,18 +1,25 @@
 const Store = require('../models/Store');
 
 // Create store
-exports.store_create_post = (req, res) => {
-    console.log('Creating new store');
-    let store = new Store(req.body);
-    store.save()
-    .then((store) => {
-        res.json({store});
-    })
-    .catch((err) => {
-        console.log('Error creating new store');
-        console.log(err);
-        res.json({err});
-    })
+exports.store_create_post = async (req, res) => {
+    // create store only if the seller doesnt have one
+    const ownStore = await hasStore(req.body.user);
+    if(!ownStore){
+        console.log(`Creating new store by ${req.body.user}`);
+        let store = new Store(req.body);
+        store.save()
+        .then((store) => {
+            res.json({store});
+        })
+        .catch((err) => {
+            console.log('Error creating new store');
+            console.log(err);
+            res.json({err}).status(400);
+        })
+    }
+    else{
+        res.json({'message': 'Error: You cannot create more stores'}).status(400);
+    }
 }
 
 // Edit store
@@ -91,5 +98,22 @@ async function hasPermission(userId, storeId) {
             return (store.user == userId);
         }
         return false;
+}
+
+/**
+ * Check if a user currently owns a store
+ * @param {userId} userId 
+ */
+async function hasStore(userId) {
+    try {
+    const store = await Store.findOne({user: userId});
+    if(store){
+        console.log(store);
+        return true;
+    }}
+    catch(err){
+        console.log(err);
+    }
+    return false;
 }
 //#endregion
