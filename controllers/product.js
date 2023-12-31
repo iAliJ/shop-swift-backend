@@ -99,10 +99,10 @@ exports.product_detail_get = (req, res) => {
 exports.product_getByCategory_get = (req, res) => {
     const categoryId = req.query.id;
 
-    // Check if categoryId is provided
-    if (!categoryId) {
-        return res.status(400).json({ message: "Category ID is required." });
-    }
+    // // Check if categoryId is provided
+    // if (!categoryId) {
+    //     return res.status(400).json({ message: "Category ID is required." });
+    // }
 
     Product.find({ category: categoryId })
         .then((products) => {
