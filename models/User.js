@@ -23,7 +23,8 @@ const userSchema = mongoose.Schema({
     "phoneNumber": String,
     "role": {
         type: String,
-        enum: ['admin', 'seller', 'buyer']
+        enum: ['admin', 'seller', 'buyer'],
+        default: 'buyer'
     }
 },
 {
