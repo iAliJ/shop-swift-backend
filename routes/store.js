@@ -4,6 +4,7 @@ const isLoggedin = require('../helper/isLoggedIn');
 const isRoleSeller = require('../helper/isRoleSeller');
 const shopController = require('../controllers/store');
 const upload = require('../helper/multerUploader');
+const cloudUpload = require('../helper/cloudUploader');
 
 router.use(express.json());
 
@@ -11,7 +12,7 @@ router.use(express.json());
 router.post('/create', isLoggedin, isRoleSeller, shopController.store_create_post);
 
 // POST /edit
-router.post('/edit', isLoggedin, isRoleSeller, upload.single('logo'), shopController.store_edit_post);
+router.post('/edit', isLoggedin, isRoleSeller, upload.single('logo'), cloudUpload.uploadFile('logo'), shopController.store_edit_post);
 
 // GET /delete
 router.get('/delete', isLoggedin, isRoleSeller, shopController.store_delete_get);
