@@ -27,7 +27,6 @@ exports.store_edit_post = async (req, res) => {
     console.log(`user ${req.user.id} is attempting to change store ${req.body._id}`);
     if(await hasPermission(req.user.id, req.body._id)) {
         console.log(`Editing store ${req.body._id}`);
-        req.body.logo = req.file.path;
         Store.findByIdAndUpdate(req.body._id, req.body, {new:true})
         .then((shop) => {
             res.json({shop});
