@@ -9,6 +9,7 @@ const app = express();
 
 //  Middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // link you static folder i.e. images, css 
 app.use(express.static('public'));
