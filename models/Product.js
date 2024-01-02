@@ -13,10 +13,17 @@ const productSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category"
     },
-    "image": {
+    "images": [
+        {
+            type: String
+        }
+    ],
+
+    "description" : {
         type: String,
         required: true
     },
+
     "sellingUnit": {
         type: String,
         required: true
