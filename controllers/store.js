@@ -25,15 +25,19 @@ exports.store_create_post = async (req, res) => {
 
 // Edit store
 exports.store_edit_post = async (req, res) => {
+    console.log('req.body inside controller:')
+    console.log(req.body)
     // If requesy body is in text format, convert it to json
-    if(typeof req.body.store == 'string'){
-        req.body = JSON.parse(req.body.store);
-    }
+    // if(typeof req.body.store == 'string'){
+    //     req.body = JSON.parse(req.body.store);
+    // }
     console.log(`user ${req.user.id} is attempting to change store ${req.body._id}`);
     if(await hasPermission(req.user.id, req.body._id)) {
         // upload the image to the cloud
-        const result = await cloudUpload.uploadSingle(req.file.path);
-        req.body.logo = result.url;
+        if(req.file){
+            const result = await cloudUpload.uploadSingle(req.file.path);
+            req.body.logo = result.url;
+        }
         console.log(`Editing store ${req.body._id}`);
         Store.findByIdAndUpdate(req.body._id, req.body, {new:true})
         .then((shop) => {
