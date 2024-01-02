@@ -1,5 +1,6 @@
 // RESTFUL APIs for registration and authentication
 const User = require('../models/User');
+const Cart = require('../models/Cart');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -15,8 +16,16 @@ exports.auth_signup_post = (req, res) => {
     user.password = hash;
 
     user.save()
-    .then(() => {
-        res.json({'message': 'user created sucessfully'});
+    .then((newUser) => {
+        // After the user is created, create an empty cart for them
+        const cart = new Cart({
+            "user": newUser._id
+        });
+        cart.save()
+        .then(() => {
+            console.log('new cart created')
+            res.json({'message': 'user created sucessfully'});
+        })
     })
     .catch(err => {
         console.log('Error signing up new user');

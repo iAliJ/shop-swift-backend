@@ -5,7 +5,14 @@ const cartSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    "totalPrice": Number,
+    "totalPrice": {
+        type: Number,
+        default: 0
+    },
+    "cartItems" : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CartItem",
+    }]
 },
 {
     timestamps: true
