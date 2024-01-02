@@ -8,6 +8,7 @@ const db = require('./config/db')
 const app = express();
 
 //  Middlewares
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // link you static folder i.e. images, css 

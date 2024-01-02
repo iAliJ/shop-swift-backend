@@ -1,4 +1,5 @@
 const Store = require('../models/Store');
+const cloudUpload = require('../helper/cloudUploader');
 
 // Create store
 exports.store_create_post = async (req, res) => {
@@ -24,11 +25,23 @@ exports.store_create_post = async (req, res) => {
 
 // Edit store
 exports.store_edit_post = async (req, res) => {
+    console.log('req.body inside controller:')
+    console.log(req.body)
+    // If requesy body is in text format, convert it to json
+    // if(typeof req.body.store == 'string'){
+    //     req.body = JSON.parse(req.body.store);
+    // }
     console.log(`user ${req.user.id} is attempting to change store ${req.body._id}`);
     if(await hasPermission(req.user.id, req.body._id)) {
+        // upload the image to the cloud
+        if(req.file){
+            const result = await cloudUpload.uploadSingle(req.file.path);
+            req.body.logo = result.url;
+        }
         console.log(`Editing store ${req.body._id}`);
         Store.findByIdAndUpdate(req.body._id, req.body, {new:true})
         .then((shop) => {
+            console.log(`Editing store ${req.body._id} completed`);
             res.json({shop});
         })
         .catch((err) => {
