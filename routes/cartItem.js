@@ -7,7 +7,7 @@ router.use(express.json());
 // Import user controller
 const cartItemCtrl = require('../controllers/cartItem');
 
-// POST /update
+// GET /update
 router.get('/update', isLoggedIn, cartItemCtrl.cartItem_update_post);
 
 module.exports = router;
