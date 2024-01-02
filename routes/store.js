@@ -5,6 +5,7 @@ const isRoleSeller = require('../helper/isRoleSeller');
 const shopController = require('../controllers/store');
 const upload = require('../helper/multerUploader');
 
+router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
 // POST /create
