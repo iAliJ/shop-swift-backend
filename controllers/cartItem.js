@@ -9,7 +9,6 @@ exports.cartItem_update_post = async (req, res) => {
     // Get the cart from the user id 
     const cart = await Cart.find({user: req.user.id});
     const product = await Product.findById(productId);
-    console.log(`product id: ${productId}`);
     const totalPrice = calculatePrice(product.price, qntity);
     CartItem.findOneAndUpdate({cart: cart}, {
         "product": product._id,
