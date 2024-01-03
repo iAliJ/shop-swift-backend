@@ -2,7 +2,7 @@ const CartItem = require('../models/CartItem');
 const Cart = require('../models/Cart');
 const Product = require('../models/Product');
 
-exports.cart_detail_get = async (req, res) => {
+exports.cart_items_get = async (req, res) => {
     // get the cart id owned by the user
     let cart = await Cart.findOne({user: req.user.id});
     // get all cart items owned by the cart
@@ -11,6 +11,18 @@ exports.cart_detail_get = async (req, res) => {
     .then((cartItems) => {
         res.json({cartItems});
     })
+}
+
+exports.cart_detail_get = async (req, res) => {
+    // get the cart id owned by the user
+    try {
+        let cart = await Cart.findOne({user: req.user.id});
+        res.json({cart});
+    }
+    catch(err){
+        console.log(err);
+        res.json(err);
+    }
 }
 
 function calculatePrice(singleItem, quantity) {
