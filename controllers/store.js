@@ -8,6 +8,7 @@ exports.store_create_post = async (req, res) => {
     if(!ownStore){
         console.log(`Creating new store by ${req.body.user}`);
         let store = new Store(req.body);
+        // store.user = req.user; // Assuming the user is attached to the request
         store.save()
         .then((store) => {
             res.json({store});
