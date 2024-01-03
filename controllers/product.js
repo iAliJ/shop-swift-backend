@@ -1,5 +1,6 @@
 const Product = require('../models/Product');
 const Store = require('../models/Store');
+const cloudUpload = require('../helper/cloudUploader');
 
 // Create product
 exports.product_create_post = (req, res) => {
@@ -10,14 +11,9 @@ exports.product_create_post = (req, res) => {
     product.save()
     .then((product) => {
         // add product to the store
-        Store.findOneAndUpdate({user: req.user.id},{$push:{product}}, {new: true})
-        .then(()=>
-        res.json({product})
-        )
-        .catch(error=>{
-            console.log('not pushed to store')
-            console.log(error);
-        })
+        // Store.findOneAndUpdate({user: req.user.id},{$push:{product}}, {new: true})
+        // .then(()=>
+        res.json({product});
     })
     .catch((err) => {
         console.log('Error creating new product');
@@ -28,9 +24,14 @@ exports.product_create_post = (req, res) => {
 
 // Edit product
 exports.product_edit_post = async (req, res) => {
-    if(await hasPermission(req.user.id, req.body.id)) {
-    console.log(`Editing product ${req.body.id}`);
-    Product.findByIdAndUpdate(req.body.id, req.body, {new:true})
+    if(await hasPermission(req.user.id, req.body._id)) {
+        // upload the image to the cloud
+    if(req.file){
+        const result = await cloudUpload.uploadSingle(req.file.path);
+        req.body.image = result.url;
+    }
+    console.log(`Editing product ${req.body._id}`);
+    Product.findByIdAndUpdate(req.body._id, req.body, {new:true})
     .then((shop) => {
         res.json({shop});
     })
@@ -39,7 +40,7 @@ exports.product_edit_post = async (req, res) => {
         console.log(err);
         res.json({err});
     })}else{
-        console.log(`user ${req.user.id} tried to edit a product ${req.body.id} which they dont own`);
+        console.log(`user ${req.user.id} tried to edit a product ${req.body._id} which they dont own`);
         res.json({"message": "You dont have permission to perform this action"});
     }
 }
@@ -90,28 +91,9 @@ exports.product_detail_get = (req, res) => {
     })
 }
 
-
-// Get all products by category
-// exports.product_getByCategory_get = (req, res) => {
-   
-
-//     Product.findById( req.query.id )
-//         .then((products) => {
-//             res.json({ products });
-//         })
-//         .catch((err) => {
-//             console.log('Error getting products by category');
-//             console.log(err);
-//             res.json({ err });
-//         });
-// };
-
 // Get all products by category
 exports.product_getByCategory_get = (req, res) => {
     const categoryId = req.query.id;
-
-   
-
     Product.find({ category: categoryId })
         .then((products) => {
             res.json({ products });
@@ -122,9 +104,6 @@ exports.product_getByCategory_get = (req, res) => {
             res.json({ err });
         });
 };
-
-
-
 
 //#region helper functions
 /**
