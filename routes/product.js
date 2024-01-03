@@ -3,14 +3,16 @@ const router = express.Router();
 const isLoggedin = require('../helper/isLoggedIn');
 const isRoleSeller = require('../helper/isRoleSeller');
 const shopController = require('../controllers/product');
+const upload = require('../helper/multerUploader');
 
+router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
 // POST /create
 router.post('/create', isLoggedin, isRoleSeller, shopController.product_create_post);
 
 // POST /edit
-router.post('/edit', isLoggedin, isRoleSeller, shopController.product_edit_post);
+router.post('/edit', isLoggedin, isRoleSeller, upload.single('file'), shopController.product_edit_post);
 
 // GET /delete
 router.get('/delete', isLoggedin, isRoleSeller, shopController.product_delete_get);
