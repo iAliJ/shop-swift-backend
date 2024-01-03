@@ -25,7 +25,8 @@ const userSchema = mongoose.Schema({
         type: String,
         enum: ['admin', 'seller', 'buyer'],
         default: 'buyer'
-    }
+    },
+    "address": String
 },
 {
     timestamps: true
