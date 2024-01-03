@@ -33,6 +33,21 @@ exports.user_store_get = (req, res) => {
     })
 }
 
+exports.user_update_post = (req, res) => {
+    console.log('updating user...' + req.user.id)
+    console.log(req.body)
+    User.findByIdAndUpdate(req.user.id, req.body, {new: true})
+    .then(user => {
+        console.log(`updating user ${req.user.id} details`);
+        res.json({user});
+    })
+    .catch(err => {
+        console.log(`Error updating user profile ${req.user.id}`);
+        console.log(err);
+        res.json({err}).status(400);
+    })
+}
+
 // Get products owned by user
 exports.user_product_get = (req, res) => {
     console.log(`Getting product owned by ${req.query.user}`);
