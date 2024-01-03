@@ -7,7 +7,7 @@ exports.cartItem_update_post = async (req, res) => {
     const productId = req.query.id;
     const qntity = req.query.qnt;
     // Get the cart from the user id 
-    const cart = await Cart.find({user: req.user.id});
+    let cart = await Cart.findOne({user: req.user.id});
     const product = await Product.findById(productId);
     const totalPrice = calculatePrice(product.price, qntity);
     CartItem.findOneAndUpdate({cart: cart, product: product._id}, {
@@ -20,8 +20,13 @@ exports.cartItem_update_post = async (req, res) => {
         upsert: true
     })
     .populate('product')
-    .then((newCartItem) => {
-        console.log(`new cart item created with id: ${newCartItem._id}`);
+    .then(async (newCartItem) => {
+        // Modify the total cart price
+        console.log(cart);
+        cart = await Cart.findOneAndUpdate({user: req.user.id}, {
+            "totalPrice": cart.totalPrice + totalPrice
+        });
+        console.log(`new cart item created/updated with id: ${newCartItem._id} in cart ${cart._id}`);
         res.json({newCartItem});
     })
 }
