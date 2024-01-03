@@ -9,6 +9,10 @@ const orderSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
+    "price": {
+        type: Number,
+        default: 0
+    },
     "status": {
         type: String,
         default: "Pending"

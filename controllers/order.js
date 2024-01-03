@@ -1,10 +1,14 @@
 const Order = require('../models/Order');
+const Cart = require('../models/Cart');
 
 exports.order_create_get = async (req, res) => {
     console.log('Creating new order..')
     let order = new Order();
     order.user = req.user.id;
     order.cart = req.query.cart;
+    // get the cart price
+    let cart = await Cart.findById(order.cart);
+    order.price = cart.totalPrice;
     order.save()
     .then(newOrder => {
         console.log(`new store created`);

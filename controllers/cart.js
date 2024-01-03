@@ -25,6 +25,18 @@ exports.cart_detail_get = async (req, res) => {
     }
 }
 
+exports.cart_empty_get = async (req, res) => {
+    // get the cart owned by the current user
+    let cart = await Cart.findOne({user: req.user.id})
+    CartItem.deleteMany({cart: cart._id})
+    .then((items) => {
+        console.log(cart._id);
+        Cart.findByIdAndUpdate(cart._id, {"totalPrice": 0}, {new: true});
+        console.log(`user ${req.user.id} has deleted cart ${cart._id} items`)
+        res.json({items});
+    })
+}
+
 function calculatePrice(singleItem, quantity) {
     return singleItem * quantity;
 }
