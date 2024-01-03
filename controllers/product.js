@@ -105,6 +105,20 @@ exports.product_getByCategory_get = (req, res) => {
         });
 };
 
+// Get all products by store
+exports.product_getByStore_get = (req, res) => {
+    const storeId = req.query.id;
+    Product.find({ store: storeId })
+        .then((products) => {
+            res.json({ products });
+        })
+        .catch((err) => {
+            console.log('Error getting products by store');
+            console.log(err);
+            res.json({ err });
+        });
+};
+
 //#region helper functions
 /**
  * Check if a specific user owns the permissions to edit or delete a product
