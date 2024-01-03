@@ -23,6 +23,7 @@ const categoryRoute = require('./routes/category');
 const CartItemRoute = require('./routes/cartItem');
 const CartRoute = require('./routes/cart');
 const OrderRoute = require('./routes/order');
+const OrderItemRoute = require('./routes/orderItem');
 
 app.use('/auth', authRoute);
 app.use('/store', storeRoute);
@@ -32,6 +33,7 @@ app.use('/category', categoryRoute);
 app.use('/cartItem', CartItemRoute);
 app.use('/cart', CartRoute);
 app.use('/order', OrderRoute);
+app.use('/orderItem', OrderItemRoute);
 
 // start listening to requests coming from the PORT
 const port = process.env.PORT || 3000
