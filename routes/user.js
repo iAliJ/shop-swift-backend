@@ -13,7 +13,6 @@ router.get('/detail', isLoggedIn, userCtrl.user_detail_get);
 // GET /store
 router.get('/store', userCtrl.user_store_get);
 
-
 // POST /update
 router.post('/update', isLoggedIn, userCtrl.user_update_post);
 
