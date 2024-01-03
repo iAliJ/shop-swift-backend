@@ -1,12 +1,23 @@
 const Product = require('../models/Product');
+const Store = require('../models/Store');
 
 // Create product
 exports.product_create_post = (req, res) => {
     console.log('Creating new product');
+    console.log(req.body);
     let product = new Product(req.body);
+    // product.user = req.user; // Assuming the user is attached to the request
     product.save()
     .then((product) => {
-        res.json({product});
+        // add product to the store
+        Store.findOneAndUpdate({user: req.user.id},{$push:{product}}, {new: true})
+        .then(()=>
+        res.json({product})
+        )
+        .catch(error=>{
+            console.log('not pushed to store')
+            console.log(error);
+        })
     })
     .catch((err) => {
         console.log('Error creating new product');
@@ -99,10 +110,7 @@ exports.product_detail_get = (req, res) => {
 exports.product_getByCategory_get = (req, res) => {
     const categoryId = req.query.id;
 
-    // // Check if categoryId is provided
-    // if (!categoryId) {
-    //     return res.status(400).json({ message: "Category ID is required." });
-    // }
+   
 
     Product.find({ category: categoryId })
         .then((products) => {

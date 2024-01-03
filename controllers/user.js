@@ -51,7 +51,7 @@ exports.user_update_post = (req, res) => {
 // Get products owned by user
 exports.user_product_get = (req, res) => {
     console.log(`Getting product owned by ${req.query.user}`);
-    Product.findOne({user: req.query.user})
+    Product.find({user: req.query.user})
     .then((product) => {
         res.json({product});
     })
