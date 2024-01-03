@@ -58,8 +58,8 @@ exports.category_delete_get = async (req, res) => {
 // Get all categorys
 exports.category_getAll_get = (req, res) => {
     Category.find()
-    .then((categorys) => {
-        res.json({categorys});
+    .then((categories) => {
+        res.json({categories});
     })
     .catch((err) => {
         console.log('Error getting all categorys')
