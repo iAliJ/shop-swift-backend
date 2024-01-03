@@ -10,4 +10,7 @@ const cartItemCtrl = require('../controllers/cartItem');
 // GET /update
 router.get('/update', isLoggedIn, cartItemCtrl.cartItem_update_post);
 
+// GET /delete
+router.get('/delete', isLoggedIn, cartItemCtrl.cartItem_delete_get);
+
 module.exports = router;
