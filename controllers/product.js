@@ -105,6 +105,32 @@ exports.product_getByCategory_get = (req, res) => {
         });
 };
 
+
+
+exports.search_index_get = (req, res) => {
+    let searchTerm = req.query.term; // Use req.query to get query parameters
+
+    // Check if searchTerm is not provided
+    if (!searchTerm) {
+        return res.status(400).json({ error: 'Search term is required' });
+    }
+
+    // Modify the query to search for products
+    const query = { "name": { "$regex": searchTerm, "$options": "i" } };
+
+    Product.find(query)
+        .populate('category')
+        .then((products) => {
+            res.json({ products }); // Send JSON response
+        })
+        .catch((error) => {
+            console.error('Error searching for products:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        });
+};
+
+
+
 //#region helper functions
 /**
  * Check if a specific user owns the permissions to edit or delete a product
