@@ -34,6 +34,7 @@ exports.cartItem_update_post = async (req, res) => {
 exports.cartItem_delete_get = async (req, res) => {
     // get the cart item from url
     const cartItemId = req.query.id;
+    let cart = await Cart.findOne({user: req.user.id});
     console.log(`user ${req.user.id} attempting to delete cart item ${cartItemId}`);
     try{
         let cartItem = await CartItem.findById(cartItemId).populate('cart');
@@ -41,8 +42,12 @@ exports.cartItem_delete_get = async (req, res) => {
         if(cartItem.cart.user == req.user.id) {
             // delete cart item
             CartItem.findByIdAndDelete(cartItemId)
-            .then((item) => {
+            .then(async (item) => {
                 console.log(`cart item ${cartItemId} deleted by ${req.user.id}`);
+                // modify cart price
+                cart = await Cart.findOneAndUpdate({user: req.user.id}, {
+                    "totalPrice": cart.totalPrice - cartItem.price
+                });
                 res.json({item});
             })
             .catch((err) => {
