@@ -2,11 +2,9 @@
 
 # E-Commerce wholsale App Backend 
 
-Wholsale team
-
-## Overview
-
-The wholesale app is an e-commerce  platform for multiple products for shops or companies to show their products for the customers online. 
+Backend server for the shop swift app which is an e-commerce platform for whole products sale.
+The server is responsible for user logins, verification and performing the CRUD operations on the database.
+Server is powered by ExpressJS and MongoDB which is part of the MERN Stack whcih the app was built on.
 
 ## Entity Relationship Diagram: 
 ![ERD](https://github.com/iAliJ/shop-swift-backend/assets/47180374/81e48a28-2fc2-4b77-9fca-fa58f345c1bd)
@@ -36,11 +34,17 @@ Are the goods to be sold by the shop, Consists of:
 * Description
 * Quantity 
 
-## Features
+### Features
 
-* Responsive site
-* Store and products management
+* Backend user and role authentication
 * CRUD Operations for Users, products, stores, carts, orders
+
+## Future Plans
+
+* Add admin role and access
+* crop images uploaded to cloudinary
+* images size verification and limitation
+* implement a better search engine for products
 
 ## Project Requirements
 
