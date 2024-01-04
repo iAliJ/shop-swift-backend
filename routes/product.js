@@ -26,6 +26,7 @@ router.get('/detail', shopController.product_detail_get);
 // GET /byCategory
 router.get('/byCategory', shopController.product_getByCategory_get);
 
+router.get('/search', shopController.search_index_get);
 // GET /bystore
 router.get('/bystore', shopController.product_getByStore_get);
 
