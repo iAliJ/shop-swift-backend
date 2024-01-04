@@ -24,7 +24,7 @@ Is the customer or client of shops, Consists of:
 * Email 
 * Password
 * User Role (Buyer or Seller)
-* 
+
 ### Products
 
 Are the goods to be sold by the shop, Consists of: 
@@ -34,12 +34,14 @@ Are the goods to be sold by the shop, Consists of:
 * Description
 * Quantity 
 
-### Features
+## Features
+
+### Current Features
 
 * Backend user and role authentication
 * CRUD Operations for Users, products, stores, carts, orders
 
-## Future Plans
+### Future Plans
 
 * Add admin role and access
 * crop images uploaded to cloudinary
