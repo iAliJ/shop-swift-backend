@@ -52,6 +52,7 @@ exports.user_update_post = (req, res) => {
 exports.user_product_get = (req, res) => {
     console.log(`Getting product owned by ${req.query.user}`);
     Product.find({user: req.query.user})
+    .populate('category')
     .then((product) => {
         res.json({product});
     })
