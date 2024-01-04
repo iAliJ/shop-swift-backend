@@ -132,3 +132,18 @@ async function hasPermission(userId, productId) {
         return false;
 }
 //#endregion
+
+
+// search from 
+// req.
+
+
+exports.search_index_post = (req, res) => {
+    let searchTerm = req.body.searchTerm;
+    const query = { "name": { "$regex": searchTerm, "$options": "i" } };
+    Shop.find(query)
+    .populate('mall')
+    .then((shops) => {
+        res.render('search/index', {shops});
+    });
+}
