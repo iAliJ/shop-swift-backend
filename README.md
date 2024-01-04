@@ -17,51 +17,44 @@ https://trello.com/invite/b/UtTfIwLI/ATTIf59d66b3dac62e0f4170e2a008c980e8E2D7E8B
 
 ## Platform Map: 
 
-a. User (Buyer / Seller): 
+### User (Buyer / Seller)
 
-Is the customer or client of shops.
+Is the customer or client of shops, Consists of: 
+* First Name
+* Last Name 
+* Phone number 
+* Email 
+* Password
+* User Role (Buyer or Seller)
+* 
+### Products
 
-Consists of: 
-
-- First Name
-- Last Name 
-- Phone number 
-- Email 
-- Password
-- User Role (Buyer or Seller) 
-- Company Name
-
-
-d. Products: 
-
-Are the tools / equipment to be sold or rented by the shop 
-
-- Consists of: 
-  - Image 
-  - Name
-  - Price
-  - Description 
-  - Quantity 
-  - Details 
-
-e. Store
-
-Is the shop or company that will offer its products to the clients
+Are the goods to be sold by the shop, Consists of: 
+* Image
+* Name
+* Price
+* Description
+* Quantity 
 
 ## Features
 
-- Responsive site
-- Store 
-- products 
-- CRUD Operations
+* Responsive site
+* Store and products management
+* CRUD Operations for Users, products, stores, carts, orders
 
 ## Project Requirements
 
-- Technology used: 
-  - Author 
-  - cloudinary
-  - dotenv
-  - express 
-  - jsonwebtoken
-  - mongooseDB
-  - multer
+Intiate .env file `touch .env` in project root directory and add the following enviroments
+```
+MONGO_DB_URI= Mongo DB Database connection string
+CLOUDINARY_URL= Cloudinary API key
+SECRET= Secret string for the JWT verification
+```
+install required dependencies `npm i`, these dependencies are:
+* bcrypt
+* cloudinary
+* dotenv
+* express
+* jsonwebtoken
+* mongoose
+* multer
